@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ["latin"] })
 export const metadata = {
   title: "Profile Matching",
   description: "A tool for decision-making using the Profile Matching method",
-    generator: 'rico rafli abin'
+  generator: 'rico rafli abin'
 }
 
 export default function RootLayout({
