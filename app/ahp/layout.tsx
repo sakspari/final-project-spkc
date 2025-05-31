@@ -6,9 +6,9 @@ import { Inter } from "next/font/google"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "AHP Calculator",
-  description: "Analytic Hierarchy Process (AHP) Calculator for decision making",
-    generator: 'v0.dev'
+  title: "AHP for decision making",
+  description: "Analytic Hierarchy Process (AHP) for decision making",
+    generator: 'rico rafli abin'
 }
 
 export default function RootLayout({
@@ -18,7 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     // <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <div className={inter.className}>{children}</div>
     // </html>
   )
 }
