@@ -102,7 +102,7 @@ export default function Home() {
                 </CardContent>
                 <CardFooter>
                   <Button asChild className="w-full">
-                    <Link href="/ahp">Learn More</Link>
+                    <Link href="/ahp">Try</Link>
                   </Button>
                 </CardFooter>
               </Card>
@@ -122,7 +122,7 @@ export default function Home() {
                 </CardContent>
                 <CardFooter>
                   <Button asChild className="w-full">
-                    <Link href="/topsis">Learn More</Link>
+                    <Link href="/topsis">Try</Link>
                   </Button>
                 </CardFooter>
               </Card>
@@ -142,7 +142,7 @@ export default function Home() {
                 </CardContent>
                 <CardFooter>
                   <Button asChild className="w-full">
-                    <Link href="/profile-matching">Learn More</Link>
+                    <Link href="/profile-matching">Try</Link>
                   </Button>
                 </CardFooter>
               </Card>
