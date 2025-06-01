@@ -164,6 +164,64 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Our Team Section */}
+<section id="team" className="w-full py-12 md:py-24 lg:py-32 bg-muted/40"> {/* Or use bg-background */}
+  <div className="container mx-auto px-4 md:px-6">
+    <div className="flex flex-col items-center justify-center space-y-4 text-center mb-10 md:mb-12">
+      <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm dark:bg-primary/10 dark:text-primary">
+        Our Team
+      </div>
+      <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+        Meet the Developers
+      </h2>
+      <p className="mx-auto max-w-[700px] text-muted-foreground md:text-lg/relaxed">
+        Passionate about creating effective tools to support your agricultural decisions.
+      </p>
+    </div>
+    <div className="mx-auto grid max-w-4xl grid-cols-1 gap-8 sm:grid-cols-3 md:gap-10 lg:gap-12">
+      {/* Developer 1 */}
+      <div className="flex flex-col items-center space-y-3 text-center">
+        {/* Optional: Avatar Placeholder */}
+        <div className="flex h-24 w-24 items-center justify-center rounded-full bg-primary/10 dark:bg-primary/20">
+          {/* Replace with actual image or keep as an icon placeholder */}
+          {/* <User className="h-12 w-12 text-primary" /> */}
+          <span className="text-3xl font-semibold text-primary">RK</span> {/* Initials as placeholder */}
+        </div>
+        <div className="space-y-1">
+          <h3 className="text-xl font-bold">Rafli Kusumawardhana</h3>
+          {/* <p className="text-sm text-muted-foreground">Developer</p> -- You can add a generic title if desired */}
+        </div>
+      </div>
+
+      {/* Developer 2 */}
+      <div className="flex flex-col items-center space-y-3 text-center">
+        {/* Optional: Avatar Placeholder */}
+        <div className="flex h-24 w-24 items-center justify-center rounded-full bg-primary/10 dark:bg-primary/20">
+          {/* <User className="h-12 w-12 text-primary" /> */}
+          <span className="text-3xl font-semibold text-primary">FS</span> {/* Initials as placeholder */}
+        </div>
+        <div className="space-y-1">
+          <h3 className="text-xl font-bold">Frederik Sakspari</h3>
+          {/* <p className="text-sm text-muted-foreground">Developer</p> */}
+        </div>
+      </div>
+
+      {/* Developer 3 */}
+      <div className="flex flex-col items-center space-y-3 text-center">
+        {/* Optional: Avatar Placeholder */}
+        <div className="flex h-24 w-24 items-center justify-center rounded-full bg-primary/10 dark:bg-primary/20">
+          {/* <User className="h-12 w-12 text-primary" /> */}
+          <span className="text-3xl font-semibold text-primary">BM</span> {/* Initials as placeholder */}
+        </div>
+        <div className="space-y-1">
+          <h3 className="text-xl font-bold">Bintang Madani</h3>
+          {/* <p className="text-sm text-muted-foreground">Developer</p> */}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
       </>
   );
 }

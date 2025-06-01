@@ -8,7 +8,7 @@ export default function Home() {
     <div className="container mx-auto px-4 py-8">
       <header className="flex justify-between items-center mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-center">TOPSIS Calculator</h1>
+          <h1 className="text-3xl font-bold text-center">TOPSIS Decision Tool</h1>
           <p className="text-muted-foreground text-center">TOPSIS (Technique for Order Preference by Similarity to Ideal Solution) is a multi-criteria decision analysis method. It identifies the best alternative by measuring its shortest geometric distance from an "ideal" solution and the longest geometric distance from a "negative-ideal" (or anti-ideal) solution. This calculator helps you use TOPSIS to rank your options based on how closely they resemble the best possible outcome while being farthest from the worst.</p>
         </div>
         {/* <ModeToggle /> */}
@@ -58,9 +58,6 @@ export default function Home() {
         </Tabs>
       </main>
 
-      <footer className="mt-12 text-center text-sm text-muted-foreground">
-        <p>© {new Date().getFullYear()} TOPSIS Calculator. All rights reserved.</p>
-      </footer>
     </div>
   )
 }
