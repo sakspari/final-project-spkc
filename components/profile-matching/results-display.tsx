@@ -37,7 +37,7 @@ export function ResultsDisplay({ onReset }: ResultsDisplayProps) {
           <div className="space-y-8">
             <StepDisplay />
 
-            <div className="mt-6 p-4 bg-muted rounded-md">
+            {/* <div className="mt-6 p-4 bg-muted rounded-md">
               <h3 className="text-lg font-medium mb-2">About Gap Calculation</h3>
               <p className="text-sm text-muted-foreground mb-2">
                 For range-based criteria, the gap calculation uses linear interpolation:
@@ -55,7 +55,7 @@ export function ResultsDisplay({ onReset }: ResultsDisplayProps) {
                 </li>
                 <li>The interpolated value (e.g., 0.33) is used directly as the gap value.</li>
               </ul>
-            </div>
+            </div> */}
 
             <div className="h-[400px] mt-8">
               <h3 className="text-lg font-medium mb-4">Results Visualization</h3>

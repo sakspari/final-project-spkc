@@ -8,7 +8,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Bar } from "react-chartjs-2"
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from "chart.js"
-import ExportExcelButton from "@/components/ahp/export-excel-button"
+// import ExportExcelButton from "@/components/ahp/export-excel-button"
 import { Badge } from "@/components/ui/badge"
 
 // Register Chart.js components
@@ -107,7 +107,7 @@ export default function ResultsStep() {
               </Alert>
             )}
           </div>
-          <ExportExcelButton />
+          {/* <ExportExcelButton /> */}
         </div>
 
         <div className="grid md:grid-cols-2 gap-6">

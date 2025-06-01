@@ -19,9 +19,9 @@ export default function RootLayout({
   return (
     // <html lang="en">
       <div className={inter.className}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+        {/* <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange> */}
           {children}
-        </ThemeProvider>
+        {/* </ThemeProvider> */}
       </div>
     // {/* </html> */}
   )

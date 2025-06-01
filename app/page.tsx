@@ -1,267 +1,169 @@
-import Link from "next/link"
-import { BarChart3, Brain, GitCompare } from "lucide-react"
+// src/app/page.tsx (or your home page file)
+import Link from "next/link";
+import { BarChart3, Brain, GitCompare, Leaf, CheckCircle } from "lucide-react"; // Added Leaf and CheckCircle
 
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { ThemeToggle } from "@/components/theme-toggle"
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+// import { SiteLayout } from "@/components/SiteLayout"; // Import SiteLayout
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <div className="flex min-h-screen flex-col">
-      <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container flex h-16 items-center justify-between">
-          <Link href="/" className="flex items-center gap-2 font-bold text-xl">
-            DSS App
-          </Link>
-          <nav className="hidden md:flex gap-6 items-center">
-            <Link href="/ahp" className="text-sm font-medium transition-colors hover:text-primary">
-              AHP
-            </Link>
-            <Link href="/topsis" className="text-sm font-medium transition-colors hover:text-primary">
-              TOPSIS
-            </Link>
-            <Link href="/profile-matching" className="text-sm font-medium transition-colors hover:text-primary">
-              Profile Matching
-            </Link>
-            <ThemeToggle />
-          </nav>
-          <div className="flex md:hidden items-center gap-4">
-            <ThemeToggle />
-            <Button variant="outline" size="icon" className="md:hidden">
-              <span className="sr-only">Toggle menu</span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="h-6 w-6"
-              >
-                <line x1="4" x2="20" y1="12" y2="12" />
-                <line x1="4" x2="20" y1="6" y2="6" />
-                <line x1="4" x2="20" y1="18" y2="18" />
-              </svg>
-            </Button>
+    <>
+      <section className="w-full py-12 md:py-24 lg:py-32 xl:py-40 flex items-center justify-center"> {/* Centering content */}
+        <div className="container px-4 md:px-6">
+          <div className="flex flex-col items-center space-y-6 text-center">
+            <div className="space-y-3">
+              <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
+                Find Your Ideal Corn Variety, Faster.
+              </h1>
+              <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl">
+                CornSelect Pro helps you choose the best corn varieties for your specific needs using proven analytical methods. Maximize yield and resilience with data-driven decisions.
+              </p>
+            </div>
+            <div className="space-x-4">
+              <Button asChild size="lg">
+                <Link href="#methods">Explore Selection Methods</Link>
+              </Button>
+              
+            </div>
           </div>
         </div>
-      </header>
-      <main className="flex-1">
-        <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48">
-          <div className="container px-4 md:px-6">
-            <div className="flex flex-col items-center space-y-4 text-center">
-              <div className="space-y-2">
-                <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
-                  Empower Your Decisions with Precision
-                </h1>
-                <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl">
-                  A comprehensive decision support system that helps you make complex decisions with confidence using
-                  advanced analytical methods.
-                </p>
-              </div>
-              <div className="space-x-4">
-                <Button asChild>
-                  <Link href="#methods">Explore Methods</Link>
-                </Button>
-                <Button variant="outline" asChild>
-                  <Link href="/docs">Documentation</Link>
-                </Button>
-              </div>
+      </section>
+
+      <section id="methods" className="w-full py-12 md:py-24 lg:py-32 bg-muted/40 flex items-center justify-center"> {/* Centering content */}
+        <div className="container px-4 md:px-6">
+          <div className="flex flex-col items-center justify-center space-y-4 text-center mb-10">
+            <div className="inline-block rounded-lg bg-primary/10 px-3 py-1 text-sm text-primary">
+              Decision Tools
             </div>
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+              Advanced Corn Variety Selection Tools
+            </h2>
+            <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+              Utilize our suite of decision-making methodologies to pinpoint the optimal corn varieties based on your criteria.
+            </p>
           </div>
-        </section>
-        <section id="methods" className="w-full py-12 md:py-24 lg:py-32 bg-muted/40">
-          <div className="container px-4 md:px-6">
-            <div className="flex flex-col items-center justify-center space-y-4 text-center">
-              <div className="space-y-2">
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-                  Decision Support Methods
-                </h2>
-                <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                  Choose from our suite of powerful decision-making methodologies to solve your complex problems.
-                </p>
-              </div>
-            </div>
-            <div className="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-3 lg:gap-12">
-              <Card>
-                <CardHeader>
-                  <div className="flex items-center gap-2">
-                    <GitCompare className="h-6 w-6 text-primary" />
-                    <CardTitle>AHP</CardTitle>
-                  </div>
-                  <CardDescription>Analytic Hierarchy Process</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <p>
-                    Break down complex decisions into hierarchical structures and make pairwise comparisons to determine
-                    the best option.
-                  </p>
-                </CardContent>
-                <CardFooter>
-                  <Button asChild className="w-full">
-                    <Link href="/ahp">Try</Link>
-                  </Button>
-                </CardFooter>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <div className="flex items-center gap-2">
-                    <BarChart3 className="h-6 w-6 text-primary" />
-                    <CardTitle>TOPSIS</CardTitle>
-                  </div>
-                  <CardDescription>Technique for Order Preference by Similarity to Ideal Solution</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <p>
-                    Find the best alternative by measuring its distance from the ideal solution and the negative-ideal
-                    solution.
-                  </p>
-                </CardContent>
-                <CardFooter>
-                  <Button asChild className="w-full">
-                    <Link href="/topsis">Try</Link>
-                  </Button>
-                </CardFooter>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <div className="flex items-center gap-2">
-                    <Brain className="h-6 w-6 text-primary" />
-                    <CardTitle>Profile Matching</CardTitle>
-                  </div>
-                  <CardDescription>Gap Analysis Method</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <p>
-                    Compare profiles against ideal requirements to find the best match based on weighted criteria and
-                    gap analysis.
-                  </p>
-                </CardContent>
-                <CardFooter>
-                  <Button asChild className="w-full">
-                    <Link href="/profile-matching">Try</Link>
-                  </Button>
-                </CardFooter>
-              </Card>
-            </div>
-          </div>
-        </section>
-        <section className="w-full py-12 md:py-24 lg:py-32">
-          <div className="container px-4 md:px-6">
-            <div className="grid gap-6 lg:grid-cols-2 lg:gap-12">
-              <div className="space-y-4">
-                <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">Why Choose Our DSS App?</h2>
-                <p className="text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                  Our Decision Support System provides a comprehensive suite of tools to help you make informed
-                  decisions based on data and proven methodologies.
-                </p>
-                <ul className="grid gap-2">
-                  <li className="flex items-center gap-2">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="h-5 w-5 text-primary"
-                    >
-                      <polyline points="20 6 9 17 4 12" />
-                    </svg>
-                    <span>Multiple decision-making methodologies in one platform</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="h-5 w-5 text-primary"
-                    >
-                      <polyline points="20 6 9 17 4 12" />
-                    </svg>
-                    <span>Intuitive interface for complex decision processes</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="h-5 w-5 text-primary"
-                    >
-                      <polyline points="20 6 9 17 4 12" />
-                    </svg>
-                    <span>Data-driven insights for better decision-making</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="h-5 w-5 text-primary"
-                    >
-                      <polyline points="20 6 9 17 4 12" />
-                    </svg>
-                    <span>Customizable criteria and weighting systems</span>
-                  </li>
-                </ul>
-              </div>
-              <div className="flex flex-col justify-center space-y-4">
-                <div className="rounded-lg border bg-background p-6 shadow-sm">
-                  <h3 className="text-xl font-bold">Get Started Today</h3>
-                  <p className="text-muted-foreground">
-                    Start making better decisions with our comprehensive decision support system.
-                  </p>
-                  <div className="mt-4">
-                    <Button asChild>
-                      <Link href="/signup">Create Free Account</Link>
-                    </Button>
+          <div className="mx-auto grid max-w-5xl items-start gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 lg:gap-12">
+            <Card className="flex flex-col h-full"> {/* Ensure cards have equal height if desired */}
+              <CardHeader>
+                <div className="flex items-center gap-3">
+                  <GitCompare className="h-8 w-8 text-primary" />
+                  <div>
+                    <CardTitle>AHP Analysis</CardTitle>
+                    <CardDescription>Analytic Hierarchy Process</CardDescription>
                   </div>
                 </div>
+              </CardHeader>
+              <CardContent className="flex-grow"> {/* Allow content to grow */}
+                <p>
+                  Prioritize selection criteria and compare corn varieties systematically to find the best fit for complex scenarios.
+                </p>
+              </CardContent>
+              <CardFooter>
+                <Button asChild className="w-full">
+                  <Link href="/ahp">Use AHP</Link>
+                </Button>
+              </CardFooter>
+            </Card>
+            <Card className="flex flex-col h-full">
+              <CardHeader>
+                <div className="flex items-center gap-3">
+                  <BarChart3 className="h-8 w-8 text-primary" />
+                  <div>
+                    <CardTitle>TOPSIS Analysis</CardTitle>
+                    <CardDescription>Order Preference by Similarity</CardDescription>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent className="flex-grow">
+                <p>
+                  Identify varieties closest to your ideal performance benchmarks and furthest from undesirable traits.
+                </p>
+              </CardContent>
+              <CardFooter>
+                <Button asChild className="w-full">
+                  <Link href="/topsis">Use TOPSIS</Link>
+                </Button>
+              </CardFooter>
+            </Card>
+            <Card className="flex flex-col h-full">
+              <CardHeader>
+                <div className="flex items-center gap-3">
+                  <Brain className="h-8 w-8 text-primary" />
+                  <div>
+                    <CardTitle>Profile Matching</CardTitle>
+                    <CardDescription>Ideal Variety Gap Analysis</CardDescription>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent className="flex-grow">
+                <p>
+                  Match corn varieties against predefined ideal profiles based on critical agronomic traits and resistance.
+                </p>
+              </CardContent>
+              <CardFooter>
+                <Button asChild className="w-full">
+                  <Link href="/profile-matching">Use Profile Matching</Link>
+                </Button>
+              </CardFooter>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Why Choose Us Section */}
+      <section className="w-full py-12 md:py-24 lg:py-32 flex items-center justify-center"> {/* Centering content */}
+        <div className="container px-4 md:px-6">
+          <div className="grid gap-10 lg:grid-cols-2 lg:gap-16 items-center">
+            <div className="space-y-4">
+              <div className="inline-block rounded-lg bg-primary/10 px-3 py-1 text-sm text-primary">
+                Key Benefits
+              </div>
+              <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">
+                Make Smarter Corn Variety Choices with CornSelect Pro
+              </h2>
+              <p className="text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                Our platform empowers agronomists, farmers, and researchers to select the best corn varieties by simplifying complex data into actionable insights.
+              </p>
+              <ul className="grid gap-3 py-2">
+                <li className="flex items-center gap-2">
+                  <CheckCircle className="h-5 w-5 text-primary" />
+                  <span>Tailored recommendations for your specific farm conditions.</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle className="h-5 w-5 text-primary" />
+                  <span>Compare multiple varieties using robust analytical frameworks.</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle className="h-5 w-5 text-primary" />
+                  <span>Save time and reduce risk in your seed selection process.</span>
+                </li>
+               
+              </ul>
+            </div>
+            <div className="flex flex-col justify-center space-y-4 items-center">
+              {/* You can add an image or illustration here */}
+              <Leaf className="h-48 w-48 text-green-500 opacity-80" />
+              <div className="rounded-lg border bg-card p-6 shadow-sm w-full max-w-md text-center">
+                <h3 className="text-xl font-bold">Ready to Optimize Your Harvest?</h3>
+                <p className="text-muted-foreground mt-2 mb-4">
+                  Start making decisions for your cornfields today.
+                </p>
+                <Button asChild size="lg" className="w-full sm:w-auto">
+                  <Link href="#methods">Begin Your Analysis</Link>
+                </Button>
               </div>
             </div>
           </div>
-        </section>
-      </main>
-      <footer className="w-full border-t py-6">
-        <div className="container flex flex-col items-center justify-between gap-4 md:flex-row">
-          <p className="text-sm text-muted-foreground">© {new Date().getFullYear()} DSS App. All rights reserved.</p>
-          <nav className="flex gap-4 sm:gap-6">
-            <Link href="/terms" className="text-sm font-medium hover:underline">
-              Terms of Service
-            </Link>
-            <Link href="/privacy" className="text-sm font-medium hover:underline">
-              Privacy Policy
-            </Link>
-            <Link href="/contact" className="text-sm font-medium hover:underline">
-              Contact
-            </Link>
-          </nav>
         </div>
-      </footer>
-    </div>
-  )
+      </section>
+      </>
+  );
 }

@@ -33,10 +33,10 @@ export default function ResultsDisplay({ results }: ResultsDisplayProps) {
     <div id="topsis-results" className="space-y-6">
       <div className="flex justify-between items-center">
         <h2 className="text-2xl font-bold">TOPSIS Results</h2>
-        <Button onClick={handleExport} disabled={exportLoading}>
+        {/* <Button onClick={handleExport} disabled={exportLoading}>
           <Download className="mr-2 h-4 w-4" />
           {exportLoading ? "Exporting..." : "Export to PDF"}
-        </Button>
+        </Button> */}
       </div>
 
       <Tabs defaultValue="matrices" className="w-full">
