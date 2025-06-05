@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { useProfileMatchingStore } from "@/lib/pm/store"
 import { StepDisplay } from "@/components/profile-matching/step-display"
 import { ResultsChart } from "@/components/profile-matching/results-chart"
+import TextualResult from "./textual-result"
 
 interface ResultsDisplayProps {
   onReset: () => void
@@ -56,6 +57,11 @@ export function ResultsDisplay({ onReset }: ResultsDisplayProps) {
                 <li>The interpolated value (e.g., 0.33) is used directly as the gap value.</li>
               </ul>
             </div> */}
+
+            {/* textual result */}
+            <div>
+              <TextualResult />
+            </div>
 
             <div className="h-[400px] mt-8">
               <h3 className="text-lg font-medium mb-4">Results Visualization</h3>
