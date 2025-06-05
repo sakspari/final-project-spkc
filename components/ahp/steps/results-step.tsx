@@ -165,7 +165,7 @@ export default function ResultsStep() {
                 )} `}</span> underscores its
                 superiority, making it the most highly recommended solution
                 based on the established criteria. Based on the calculation
-                using AHP method, the highest rank is the alternative
+                using AHP method, the highest rank is the best alternative
           </p>
         </div>
       </div>
