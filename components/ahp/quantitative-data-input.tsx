@@ -85,10 +85,10 @@ export default function QuantitativeDataInput({ criterion, alternatives }: Quant
   return (
     <div className="space-y-6">
       <div>
-        <h3 className="text-lg font-medium mb-2">
+        <h3 className="text-lg font-medium mb-2 text-gray-900 dark:text-gray-100">
           {criterion.name} ({criterion.isCost ? "Cost" : "Benefit"} criterion)
         </h3>
-        <p className="text-sm text-gray-500 mb-4">
+        <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
           Enter the numerical values for each alternative. Higher values are
           {criterion.isCost ? " worse " : " better "}
           for this criterion.
@@ -98,14 +98,14 @@ export default function QuantitativeDataInput({ criterion, alternatives }: Quant
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Alternative</TableHead>
-                <TableHead>Value</TableHead>
+                <TableHead className="text-gray-900 dark:text-gray-100">Alternative</TableHead>
+                <TableHead className="text-gray-900 dark:text-gray-100">Value</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {alternatives.map((alternative) => (
                 <TableRow key={alternative.id}>
-                  <TableCell>{alternative.name}</TableCell>
+                  <TableCell className="text-gray-900 dark:text-gray-100">{alternative.name}</TableCell>
                   <TableCell>
                     <div className="flex items-center gap-2">
                       <Input
@@ -139,8 +139,8 @@ export default function QuantitativeDataInput({ criterion, alternatives }: Quant
       {hasData && (
         <>
           <div>
-            <h4 className="text-md font-medium mb-2">Normalized Values</h4>
-            <p className="text-sm text-gray-500 mb-2">
+            <h4 className="text-md font-medium mb-2 text-gray-900 dark:text-gray-100">Normalized Values</h4>
+            <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">
               Using {criterion.normalizationType} normalization for this {criterion.isCost ? "cost" : "benefit"}{" "}
               criterion.
             </p>
@@ -149,17 +149,17 @@ export default function QuantitativeDataInput({ criterion, alternatives }: Quant
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>Alternative</TableHead>
-                    <TableHead>Raw Value</TableHead>
-                    <TableHead>Normalized Value</TableHead>
+                    <TableHead className="text-gray-900 dark:text-gray-100">Alternative</TableHead>
+                    <TableHead className="text-gray-900 dark:text-gray-100">Raw Value</TableHead>
+                    <TableHead className="text-gray-900 dark:text-gray-100">Normalized Value</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {alternatives.map((alternative, index) => (
                     <TableRow key={alternative.id}>
-                      <TableCell>{alternative.name}</TableCell>
-                      <TableCell>{getValue(alternative.id)}</TableCell>
-                      <TableCell>
+                      <TableCell className="text-gray-900 dark:text-gray-100">{alternative.name}</TableCell>
+                      <TableCell className="text-gray-900 dark:text-gray-100">{getValue(alternative.id)}</TableCell>
+                      <TableCell className="text-gray-900 dark:text-gray-100">
                         {normalizedValues && index < normalizedValues.length
                           ? formatNumber(normalizedValues[index])
                           : formatNumber(0)}
@@ -172,8 +172,12 @@ export default function QuantitativeDataInput({ criterion, alternatives }: Quant
           </div>
 
           <div>
-            <h4 className="text-md font-medium mb-2">Derived Pairwise Comparison Matrix</h4>
-            <p className="text-sm text-gray-500 mb-2">Automatically calculated from normalized values.</p>
+            <h4 className="text-md font-medium mb-2 text-gray-900 dark:text-gray-100">
+              Derived Pairwise Comparison Matrix
+            </h4>
+            <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">
+              Automatically calculated from normalized values.
+            </p>
 
             <div className="overflow-x-auto">
               <Table>
@@ -181,16 +185,18 @@ export default function QuantitativeDataInput({ criterion, alternatives }: Quant
                   <TableRow>
                     <TableHead></TableHead>
                     {alternatives.map((alt) => (
-                      <TableHead key={alt.id}>{alt.name}</TableHead>
+                      <TableHead key={alt.id} className="text-gray-900 dark:text-gray-100">
+                        {alt.name}
+                      </TableHead>
                     ))}
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {alternatives.map((rowAlt, rowIndex) => (
                     <TableRow key={rowAlt.id}>
-                      <TableCell className="font-medium">{rowAlt.name}</TableCell>
+                      <TableCell className="font-medium text-gray-900 dark:text-gray-100">{rowAlt.name}</TableCell>
                       {alternatives.map((colAlt, colIndex) => (
-                        <TableCell key={colAlt.id}>
+                        <TableCell key={colAlt.id} className="text-gray-900 dark:text-gray-100">
                           {pairwiseMatrix &&
                           rowIndex < pairwiseMatrix.length &&
                           pairwiseMatrix[rowIndex] &&

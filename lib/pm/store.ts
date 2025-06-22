@@ -14,6 +14,7 @@ interface ProfileMatchingState {
   // Actions
   addAlternative: (alternative: Alternative) => void
   removeAlternative: (id: string) => void
+  updateAlternative: (id: string, updates: Partial<Alternative>) => void
   updateAlternativeValue: (altId: string, critId: string, value: string | number | [number, number]) => void
 
   addCriterion: (criterion: Criterion) => void
@@ -45,6 +46,11 @@ export const useProfileMatchingStore = create<ProfileMatchingState>((set) => ({
   removeAlternative: (id) =>
     set((state) => ({
       alternatives: state.alternatives.filter((alt) => alt.id !== id),
+    })),
+
+  updateAlternative: (id, updates) =>
+    set((state) => ({
+      alternatives: state.alternatives.map((alt) => (alt.id === id ? { ...alt, ...updates } : alt)),
     })),
 
   updateAlternativeValue: (altId, critId, value) =>

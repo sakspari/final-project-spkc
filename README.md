@@ -1,117 +1,153 @@
-# Corn Variety Decision Support System
+<div align="center">
+  <img src="./images/logo-corn-select.png" alt="Corn Icon Logo" style="border-radius: 50%; height: 20rem; width: 20rem; object-fit: cover;">
+  <h1>Corn Variety Decision Support System</h1>
+  <p>An intelligent web application to help you select the perfect corn variety using data-driven insights.</p>
+  
+  <p>
+    <img alt="GitHub stars" src="https://img.shields.io/github/stars/sakspari/final-project-spkc?style=for-the-badge&color=gold">
+    <img alt="GitHub forks" src="https://img.shields.io/github/forks/sakspari/final-project-spkc?style=for-the-badge&color=blue">
+    <img alt="Repo size" src="https://img.shields.io/github/repo-size/sakspari/final-project-spkc?style=for-the-badge&color=green">
+    <img alt="License" src="https://img.shields.io/github/license/sakspari/final-project-spkc?style=for-the-badge&color=blueviolet">
+  </p>
+</div>
 
-## Description
+---
 
-This project is a web application built as a final project for SPKC. It aims to assist decision-makers in selecting the most suitable corn varieties based on various criteria and data. The system provides a user-friendly interface to input preferences and analyze available options, ultimately supporting an informed selection process.
+## 📖 Table of Contents
 
-## Developed By
+- [About The Project](#about-the-project)
+- [Key Features](#key-features)
+- [Screenshots](#screenshots)
+- [Tech Stack](#tech-stack)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation & Setup](#installation--setup)
+- [Team Member](#team-member)
 
-- [Frederik Baptista Sakspari]
-- [Rafli Irfansyah Kusumawardhana]
-- [Bintang Muhammad Madani]
+---
 
-## Technologies Used
+## About The Project
 
-- **Framework:** [Next.js](https://nextjs.org/)
-- **UI Components:** [Shadcn UI](https://ui.shadcn.com/)
-- **Language:** TypeScript
-- **Package Manager:** npm / yarn / bun
+The **Corn Variety Decision Support System** is a sophisticated web application designed to simplify the complex process of selecting the most suitable corn varieties. Built as a final project for SPKC, this tool empowers agricultural decision-makers by providing a user-friendly interface to filter, compare, and analyze corn varieties based on a wide range of critical criteria. By leveraging comprehensive data, the system removes guesswork and facilitates an informed, strategic selection process.
+
+---
+
+## Key Features
+
+- **Advanced Filtering:** Narrow down options based on criteria like yield potential, climate resilience, soil type, and more.
+- **Side-by-Side Comparison:** Analyze the pros and cons of different corn varieties in an intuitive comparison view.
+- **Data-Driven Recommendations:** Receive intelligent suggestions based on your specific inputs and requirements.
+- **Responsive Design:** Access the system seamlessly on any device, whether you're in the office or out in the field.
+- **User-Friendly Interface:** A clean and modern UI built with Shadcn UI for an effortless user experience.
+
+---
+
+## Screenshots
+
+Here's a sneak peek of the application in action.
+
+<div align="center">
+  <img src="./images/homepage.png" alt="Application Screenshot 1" style="border-radius: 8px; margin: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+  <img src="./images/topsis.png" alt="Application Screenshot 2" style="border-radius: 8px; margin: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+</div>
+
+---
+
+## Tech Stack
+
+This project is built with a modern and powerful set of technologies:
+
+| Technology | Description |
+| :--- | :--- |
+| **[Next.js](https://nextjs.org/)** | A leading React framework for building fast and scalable web applications. |
+| **[React](https://react.dev/)** | The core library for building user interfaces. |
+| **[TypeScript](https://www.typescriptlang.org/)** | For robust, type-safe JavaScript code. |
+| **[Shadcn UI](https://ui.shadcn.com/)** | A collection of beautifully designed, reusable components. |
+| **[Tailwind CSS](https://tailwindcss.com/)** | A utility-first CSS framework for rapid UI development. |
+| **[pnpm](https://pnpm.io/)** | A fast, disk space-efficient package manager. |
+
+---
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+Follow these steps to get a local copy of the project up and running.
 
 ### Prerequisites
 
-Make sure you have Node.js installed on your system. You can download it from [nodejs.org](https://nodejs.org/).
-Depending on your preference, you will also need npm (comes with Node.js), Yarn, or Bun.
+Before you begin, ensure you have the following installed on your machine:
+- [Node.js](https://nodejs.org/) (v18.x or newer is recommended)
+- [Git](https://git-scm.com/) for version control
 
-- **npm:** Comes with Node.js.
-- **Yarn:** `npm install --global yarn`
-- **Bun:** `npm install --global bun` (or see [Bun's official installation guide](https://bun.sh/docs/installation))
+You will also need a package manager. We recommend **pnpm** for its performance and efficiency.
 
-### Installation
+- **pnpm**
 
-1.  **Clone the repository:**
-    First, clone the project to your local machine using Git:
+- **Bun**
 
+- **npm:**
+Comes pre-installed with Node.js.
+---
+
+### Installation & Setup
+
+Follow these steps to get your development environment running.
+
+1. Clone the RepositoryFirst, clone the project from GitHub to your local machine.
     ```bash
     git clone https://github.com/sakspari/final-project-spkc.git
     cd final-project-spkc
     ```
+2. Install Project DependenciesChoose your preferred package manager and run one of the following commands in the project's root directory.Note: pnpm is the recommended choice for this project.
 
-2.  **Install dependencies:**
-    Navigate to the project directory and install the necessary dependencies using your preferred package manager:
+    **Using pnpm (Recommended)**
+        
+        pnpm install
+        
+    **Using npm**
 
-    - **Using npm:**
+        npm install
 
-      ```bash
-      npm install
-      ```
+    **Using Bun**
+    
+        bun install
 
-    - **Using yarn:**
+3. Build the Project for Production before running the application, it's best practice to create a production-ready build. This optimizes the code for performance.
 
-      ```bash
-      yarn install
-      ```
+    **Using pnpm**
 
-      _(Note: `yarn` by itself usually works for installing)_
+        pnpm build
 
-    - **Using bun:**
-      ```bash
-      bun install
-      ```
+    **Using npm**
 
-### Running the Development Server
+        npm run build
 
-Once the dependencies are installed, you can start the development server:
+    **Using Bun**
 
-- **Using npm:**
+        bun run build
 
-  ```bash
-  npm run dev
-  ```
+4. Start the Server once the build is complete, you can start the local production server.
 
-- **Using yarn:**
+    **Using pnpm**
 
-  ```bash
-  yarn dev
-  ```
+        pnpm start
 
-- **Using bun:**
-  ```bash
-  bun dev
-  ```
+    **Using npm**
 
-This will typically start the application on `http://localhost:3000`. Open this URL in your web browser to see the application.
+        npm run start
 
-### Building for Production (Optional)
+    **Using Bun**
 
-If you want to build the application for production, you can use the following commands:
+        bun run start
 
-- **Using npm:**
+### 🎉 Congratulations! The application should now be running on http://localhost:3000.
 
-  ```bash
-  npm run build
-  npm run start
-  ```
+### Development Mode: 
+If you plan to actively develop and want features like hot-reloading, you can run pnpm dev, npm run dev, or bun dev instead of the build and start commands.
 
-- **Using yarn:**
+## Team Member
 
-  ```bash
-  yarn build
-  yarn start
-  ```
+This project was developed by a dedicated team.
 
-- **Using bun:**
-
-  ```bash
-    bun run build
-    bun run start
-  ```
-
-  The `build` command creates an optimized production build of the application. The `start` command then runs this production build.
-
-  ### Thank you 🔥
-
-  ***
+- [Frederik Baptista Sakspari]
+- [Rafli Irfansyah Kusumawardhana]
+- [Bintang Muhammad Madani]

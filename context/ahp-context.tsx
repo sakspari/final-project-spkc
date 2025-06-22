@@ -75,6 +75,18 @@ interface AHPContextType {
   criteriaPairwise: PairwiseMatrix | null
   alternativesPairwise: AlternativeMatrix[]
   finalRanking: { alternativeId: string; score: number }[]
+
+  // Validation states
+  criteriaValidation: {
+    hasEmptyNames: boolean
+    hasDuplicateNames: boolean
+    canProceed: boolean
+  }
+  alternativesValidation: {
+    hasEmptyNames: boolean
+    hasDuplicateNames: boolean
+    canProceed: boolean
+  }
 }
 
 const AHPContext = createContext<AHPContextType | undefined>(undefined)
@@ -113,6 +125,25 @@ export function AHPProvider({ children }: { children: ReactNode }) {
   // Completion flags
   const [criteriaPairwiseComplete, setCriteriaPairwiseComplete] = useState(false)
   const [alternativesPairwiseComplete, setAlternativesPairwiseComplete] = useState(false)
+
+  // Validation states
+  const criteriaValidation = useMemo(() => {
+    const hasEmptyNames = criteria.some((c) => !c.name.trim())
+    const names = criteria.map((c) => c.name.trim().toLowerCase()).filter((name) => name)
+    const hasDuplicateNames = names.length !== new Set(names).size
+    const canProceed = criteria.length >= 2 && !hasEmptyNames && !hasDuplicateNames
+
+    return { hasEmptyNames, hasDuplicateNames, canProceed }
+  }, [criteria])
+
+  const alternativesValidation = useMemo(() => {
+    const hasEmptyNames = alternatives.some((a) => !a.name.trim())
+    const names = alternatives.map((a) => a.name.trim().toLowerCase()).filter((name) => name)
+    const hasDuplicateNames = names.length !== new Set(names).size
+    const canProceed = alternatives.length >= 2 && !hasEmptyNames && !hasDuplicateNames
+
+    return { hasEmptyNames, hasDuplicateNames, canProceed }
+  }, [alternatives])
 
   // Initialize matrices when criteria or alternatives change
   useEffect(() => {
@@ -511,10 +542,7 @@ export function AHPProvider({ children }: { children: ReactNode }) {
   }, [criteria.length])
 
   const removeCriterion = useCallback((id: string) => {
-    setCriteria((prev) => {
-      if (prev.length <= 2) return prev
-      return prev.filter((c) => c.id !== id)
-    })
+    setCriteria((prev) => prev.filter((c) => c.id !== id))
 
     // Also remove quantitative data for this criterion if exists
     setQuantitativeData((prev) => prev.filter((data) => data.criterionId !== id))
@@ -589,10 +617,7 @@ export function AHPProvider({ children }: { children: ReactNode }) {
   }, [alternatives.length])
 
   const removeAlternative = useCallback((id: string) => {
-    setAlternatives((prev) => {
-      if (prev.length <= 2) return prev
-      return prev.filter((a) => a.id !== id)
-    })
+    setAlternatives((prev) => prev.filter((a) => a.id !== id))
 
     // Also remove this alternative from all quantitative data
     setQuantitativeData((prev) =>
@@ -741,6 +766,9 @@ export function AHPProvider({ children }: { children: ReactNode }) {
     criteriaPairwise,
     alternativesPairwise,
     finalRanking,
+
+    criteriaValidation,
+    alternativesValidation,
   }
 
   return <AHPContext.Provider value={value}>{children}</AHPContext.Provider>

@@ -6,6 +6,8 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { AlertCircle } from "lucide-react"
 import type { TopsisInput } from "@/lib/types/topsis"
 import { Loader2 } from "lucide-react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -24,6 +26,15 @@ export default function InputForm({ onCalculate, loading }: InputFormProps) {
   const [values, setValues] = useState<number[][]>([])
   const [weights, setWeights] = useState<number[]>([])
   const [types, setTypes] = useState<string[]>([])
+
+  // Validation states
+  const [validation, setValidation] = useState({
+    alternativesHasEmpty: false,
+    alternativesHasDuplicates: false,
+    criteriaHasEmpty: false,
+    criteriaHasDuplicates: false,
+    canProceed: true,
+  })
 
   // Initialize or update state when dimensions change
   useEffect(() => {
@@ -54,6 +65,30 @@ export default function InputForm({ onCalculate, loading }: InputFormProps) {
     const newTypes = Array(numCriteria).fill("benefit")
     setTypes(newTypes)
   }, [numAlternatives, numCriteria])
+
+  // Validate names whenever they change
+  useEffect(() => {
+    // Check alternatives
+    const alternativesHasEmpty = alternativeNames.some((name) => !name.trim())
+    const altNames = alternativeNames.map((name) => name.trim().toLowerCase()).filter((name) => name)
+    const alternativesHasDuplicates = altNames.length !== new Set(altNames).size
+
+    // Check criteria
+    const criteriaHasEmpty = criteriaNames.some((name) => !name.trim())
+    const critNames = criteriaNames.map((name) => name.trim().toLowerCase()).filter((name) => name)
+    const criteriaHasDuplicates = critNames.length !== new Set(critNames).size
+
+    const canProceed =
+      !alternativesHasEmpty && !alternativesHasDuplicates && !criteriaHasEmpty && !criteriaHasDuplicates
+
+    setValidation({
+      alternativesHasEmpty,
+      alternativesHasDuplicates,
+      criteriaHasEmpty,
+      criteriaHasDuplicates,
+      canProceed,
+    })
+  }, [alternativeNames, criteriaNames])
 
   // Load saved data from localStorage on component mount
   useEffect(() => {
@@ -111,6 +146,10 @@ export default function InputForm({ onCalculate, loading }: InputFormProps) {
 
   // Handle form submission
   const handleSubmit = () => {
+    if (!validation.canProceed) {
+      return
+    }
+
     onCalculate({
       alternatives: alternativeNames,
       criteria: criteriaNames,
@@ -154,6 +193,47 @@ export default function InputForm({ onCalculate, loading }: InputFormProps) {
         </div>
       </div>
 
+      {/* Validation Alerts */}
+      {validation.alternativesHasEmpty && (
+        <Alert variant="destructive">
+          <AlertCircle className="h-4 w-4" />
+          <AlertTitle>Empty Alternative Names</AlertTitle>
+          <AlertDescription>
+            All alternatives must have non-empty names. Please fill in all alternative names.
+          </AlertDescription>
+        </Alert>
+      )}
+
+      {validation.alternativesHasDuplicates && (
+        <Alert variant="destructive">
+          <AlertCircle className="h-4 w-4" />
+          <AlertTitle>Duplicate Alternative Names</AlertTitle>
+          <AlertDescription>
+            All alternative names must be unique. Please ensure no duplicate names exist.
+          </AlertDescription>
+        </Alert>
+      )}
+
+      {validation.criteriaHasEmpty && (
+        <Alert variant="destructive">
+          <AlertCircle className="h-4 w-4" />
+          <AlertTitle>Empty Criteria Names</AlertTitle>
+          <AlertDescription>
+            All criteria must have non-empty names. Please fill in all criteria names.
+          </AlertDescription>
+        </Alert>
+      )}
+
+      {validation.criteriaHasDuplicates && (
+        <Alert variant="destructive">
+          <AlertCircle className="h-4 w-4" />
+          <AlertTitle>Duplicate Criteria Names</AlertTitle>
+          <AlertDescription>
+            All criteria names must be unique. Please ensure no duplicate names exist.
+          </AlertDescription>
+        </Alert>
+      )}
+
       <Accordion type="single" collapsible defaultValue="item-1">
         <AccordionItem value="item-1">
           <AccordionTrigger>Alternative & Criteria Names</AccordionTrigger>
@@ -165,18 +245,34 @@ export default function InputForm({ onCalculate, loading }: InputFormProps) {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-2">
-                    {alternativeNames.map((name, index) => (
-                      <div key={`alt-${index}`} className="flex items-center gap-2">
-                        <Label htmlFor={`alt-${index}`} className="w-10">
-                          A{index + 1}
-                        </Label>
-                        <Input
-                          id={`alt-${index}`}
-                          value={name}
-                          onChange={(e) => handleAlternativeNameChange(index, e.target.value)}
-                        />
-                      </div>
-                    ))}
+                    {alternativeNames.map((name, index) => {
+                      const isEmpty = !name.trim()
+                      const isDuplicate =
+                        alternativeNames.filter((n) => n.trim().toLowerCase() === name.trim().toLowerCase()).length >
+                          1 && name.trim()
+
+                      return (
+                        <div key={`alt-${index}`} className="space-y-1">
+                          <div className="flex items-center gap-2">
+                            <Label htmlFor={`alt-${index}`} className="w-10">
+                              A{index + 1}
+                            </Label>
+                            <Input
+                              id={`alt-${index}`}
+                              value={name}
+                              onChange={(e) => handleAlternativeNameChange(index, e.target.value)}
+                              className={isEmpty || isDuplicate ? "border-red-500 focus:border-red-500" : ""}
+                            />
+                          </div>
+                          {(isEmpty || isDuplicate) && (
+                            <div className="text-sm text-red-500 pl-12">
+                              {isEmpty && "Name cannot be empty"}
+                              {isDuplicate && "Name must be unique"}
+                            </div>
+                          )}
+                        </div>
+                      )
+                    })}
                   </div>
                 </CardContent>
               </Card>
@@ -187,18 +283,34 @@ export default function InputForm({ onCalculate, loading }: InputFormProps) {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-2">
-                    {criteriaNames.map((name, index) => (
-                      <div key={`crit-${index}`} className="flex items-center gap-2">
-                        <Label htmlFor={`crit-${index}`} className="w-10">
-                          C{index + 1}
-                        </Label>
-                        <Input
-                          id={`crit-${index}`}
-                          value={name}
-                          onChange={(e) => handleCriteriaNameChange(index, e.target.value)}
-                        />
-                      </div>
-                    ))}
+                    {criteriaNames.map((name, index) => {
+                      const isEmpty = !name.trim()
+                      const isDuplicate =
+                        criteriaNames.filter((n) => n.trim().toLowerCase() === name.trim().toLowerCase()).length > 1 &&
+                        name.trim()
+
+                      return (
+                        <div key={`crit-${index}`} className="space-y-1">
+                          <div className="flex items-center gap-2">
+                            <Label htmlFor={`crit-${index}`} className="w-10">
+                              C{index + 1}
+                            </Label>
+                            <Input
+                              id={`crit-${index}`}
+                              value={name}
+                              onChange={(e) => handleCriteriaNameChange(index, e.target.value)}
+                              className={isEmpty || isDuplicate ? "border-red-500 focus:border-red-500" : ""}
+                            />
+                          </div>
+                          {(isEmpty || isDuplicate) && (
+                            <div className="text-sm text-red-500 pl-12">
+                              {isEmpty && "Name cannot be empty"}
+                              {isDuplicate && "Name must be unique"}
+                            </div>
+                          )}
+                        </div>
+                      )
+                    })}
                   </div>
                 </CardContent>
               </Card>
@@ -306,7 +418,7 @@ export default function InputForm({ onCalculate, loading }: InputFormProps) {
       </Card>
 
       <div className="flex flex-wrap gap-4">
-        <Button onClick={handleSubmit} disabled={loading}>
+        <Button onClick={handleSubmit} disabled={loading || !validation.canProceed}>
           {loading ? (
             <>
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -320,6 +432,14 @@ export default function InputForm({ onCalculate, loading }: InputFormProps) {
           Reset Form
         </Button>
       </div>
+
+      {!validation.canProceed && (
+        <Alert>
+          <AlertCircle className="h-4 w-4" />
+          <AlertTitle>Cannot Proceed</AlertTitle>
+          <AlertDescription>Please fix the validation errors above before calculating TOPSIS results.</AlertDescription>
+        </Alert>
+      )}
     </div>
   )
 }

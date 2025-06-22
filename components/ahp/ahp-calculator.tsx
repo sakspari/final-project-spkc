@@ -35,7 +35,9 @@ export default function AHPCalculator() {
         <Header />
         <div className="grid grid-cols-1 md:grid-cols-[250px_1fr] gap-6 mt-8">
           <StepNavigation currentStep={currentStep} setCurrentStep={setCurrentStep} />
-          <div className="bg-white rounded-lg shadow-md p-6">{renderStep()}</div>
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 border dark:border-gray-700">
+            {renderStep()}
+          </div>
         </div>
       </div>
     </AHPProvider>

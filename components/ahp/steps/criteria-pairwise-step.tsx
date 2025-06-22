@@ -14,6 +14,8 @@ export default function CriteriaPairwiseStep() {
     return <div>Loading...</div>
   }
 
+  const hasConsistencyIssue = criteriaPairwiseComplete && criteriaPairwise.consistencyRatio > 0.1 && criteria.length > 2
+
   return (
     <div className="space-y-8">
       <div>
@@ -46,13 +48,13 @@ export default function CriteriaPairwiseStep() {
             <h3 className="text-lg font-semibold mb-3">Consistency Check</h3>
             <ConsistencyCheck matrix={criteriaPairwise} items={criteria} />
 
-            {!criteriaPairwise.isConsistent && criteriaPairwise.consistencyRatio > 0.1 && (
+            {hasConsistencyIssue && (
               <Alert variant="destructive" className="mt-4">
                 <AlertCircle className="h-4 w-4" />
                 <AlertTitle>Inconsistent Judgments</AlertTitle>
                 <AlertDescription>
                   Your consistency ratio is {criteriaPairwise.consistencyRatio.toFixed(3)}, which is greater than 0.1.
-                  Consider revising your pairwise comparisons to improve consistency.
+                  You must revise your pairwise comparisons to improve consistency before proceeding to the next step.
                 </AlertDescription>
               </Alert>
             )}
@@ -73,8 +75,11 @@ export default function CriteriaPairwiseStep() {
       <div className="bg-blue-50 p-4 rounded-md">
         <h3 className="font-medium text-blue-700">Next Steps</h3>
         <p className="text-blue-600 text-sm mt-1">
-          After completing the criteria comparisons, proceed to the next step to compare alternatives with respect to
-          each criterion.
+          {hasConsistencyIssue
+            ? "Please improve the consistency of your judgments before proceeding to alternative comparisons."
+            : criteriaPairwiseComplete
+              ? "Proceed to the next step to compare alternatives with respect to each criterion."
+              : "Complete all criteria comparisons to proceed to the next step."}
         </p>
       </div>
     </div>

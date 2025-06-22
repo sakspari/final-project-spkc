@@ -4,12 +4,13 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Plus, Trash2 } from "lucide-react"
+import { Plus, Trash2, AlertCircle } from "lucide-react"
 import { useProfileMatchingStore } from "@/lib/pm/store"
 import type { Criterion } from "@/lib/pm/types"
 import { Switch } from "@/components/ui/switch"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { CriteriaValuesInput } from "@/components/profile-matching/criteria-values-input"
 
 export function CriteriaInput() {
@@ -42,8 +43,38 @@ export function CriteriaInput() {
     updateCriterion(id, { idealValue })
   }
 
+  const updateCriterionName = (id: string, name: string) => {
+    updateCriterion(id, { name })
+  }
+
+  // Validation logic
+  const hasEmptyNames = criteria.some((c) => !c.name.trim())
+  const names = criteria.map((c) => c.name.trim().toLowerCase()).filter((name) => name)
+  const hasDuplicateNames = names.length !== new Set(names).size
+
   return (
     <div className="space-y-4">
+      {/* Validation alerts */}
+      {hasEmptyNames && (
+        <Alert variant="destructive">
+          <AlertCircle className="h-4 w-4" />
+          <AlertTitle>Empty Criterion Names</AlertTitle>
+          <AlertDescription>
+            All criteria must have non-empty names. Please fill in all criterion names.
+          </AlertDescription>
+        </Alert>
+      )}
+
+      {hasDuplicateNames && (
+        <Alert variant="destructive">
+          <AlertCircle className="h-4 w-4" />
+          <AlertTitle>Duplicate Criterion Names</AlertTitle>
+          <AlertDescription>
+            All criterion names must be unique. Please ensure no duplicate names exist.
+          </AlertDescription>
+        </Alert>
+      )}
+
       <div className="flex gap-2">
         <Input
           placeholder="Criterion name (e.g., Price, Quality)"
@@ -74,51 +105,73 @@ export function CriteriaInput() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {criteria.map((criterion) => (
-              <TableRow key={criterion.id}>
-                <TableCell>{criterion.name}</TableCell>
-                <TableCell>
-                  <div className="flex items-center space-x-2">
-                    <Switch
-                      id={`range-${criterion.id}`}
-                      checked={criterion.isRange}
-                      onCheckedChange={(checked) => toggleRangeType(criterion.id, checked)}
+            {criteria.map((criterion) => {
+              const isEmpty = !criterion.name.trim()
+              const isDuplicate =
+                criteria.filter((c) => c.name.trim().toLowerCase() === criterion.name.trim().toLowerCase()).length >
+                  1 && criterion.name.trim()
+
+              return (
+                <TableRow key={criterion.id}>
+                  <TableCell>
+                    <div className="space-y-1">
+                      <Input
+                        value={criterion.name}
+                        onChange={(e) => updateCriterionName(criterion.id, e.target.value)}
+                        placeholder="Enter criterion name"
+                        className={`${isEmpty || isDuplicate ? "border-red-500 focus:border-red-500" : ""}`}
+                      />
+                      {(isEmpty || isDuplicate) && (
+                        <div className="text-xs text-red-500">
+                          {isEmpty && "Name cannot be empty"}
+                          {isDuplicate && "Name must be unique"}
+                        </div>
+                      )}
+                    </div>
+                  </TableCell>
+                  <TableCell>
+                    <div className="flex items-center space-x-2">
+                      <Switch
+                        id={`range-${criterion.id}`}
+                        checked={criterion.isRange}
+                        onCheckedChange={(checked) => toggleRangeType(criterion.id, checked)}
+                      />
+                      <Label htmlFor={`range-${criterion.id}`}>{criterion.isRange ? "Range" : "Single Value"}</Label>
+                    </div>
+                  </TableCell>
+                  <TableCell>
+                    <Input
+                      type="number"
+                      placeholder="Ideal value"
+                      value={criterion.idealValue}
+                      onChange={(e) => setIdealValue(criterion.id, e.target.value)}
+                      className="w-24"
                     />
-                    <Label htmlFor={`range-${criterion.id}`}>{criterion.isRange ? "Range" : "Single Value"}</Label>
-                  </div>
-                </TableCell>
-                <TableCell>
-                  <Input
-                    type="number"
-                    placeholder="Ideal value"
-                    value={criterion.idealValue}
-                    onChange={(e) => setIdealValue(criterion.id, e.target.value)}
-                    className="w-24"
-                  />
-                </TableCell>
-                <TableCell>
-                  <Select
-                    value={criterion.factorType}
-                    onValueChange={(value) => setFactorType(criterion.id, value as "none" | "core" | "secondary")}
-                  >
-                    <SelectTrigger className="w-[130px]">
-                      <SelectValue placeholder="Select type" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="none">None</SelectItem>
-                      <SelectItem value="core">Core Factor</SelectItem>
-                      <SelectItem value="secondary">Secondary Factor</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </TableCell>
-                <TableCell className="text-right">
-                  <Button variant="ghost" size="icon" onClick={() => removeCriterion(criterion.id)}>
-                    <Trash2 className="h-4 w-4" />
-                    <span className="sr-only">Remove</span>
-                  </Button>
-                </TableCell>
-              </TableRow>
-            ))}
+                  </TableCell>
+                  <TableCell>
+                    <Select
+                      value={criterion.factorType}
+                      onValueChange={(value) => setFactorType(criterion.id, value as "none" | "core" | "secondary")}
+                    >
+                      <SelectTrigger className="w-[130px]">
+                        <SelectValue placeholder="Select type" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="none">None</SelectItem>
+                        <SelectItem value="core">Core Factor</SelectItem>
+                        <SelectItem value="secondary">Secondary Factor</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </TableCell>
+                  <TableCell className="text-right">
+                    <Button variant="ghost" size="icon" onClick={() => removeCriterion(criterion.id)}>
+                      <Trash2 className="h-4 w-4" />
+                      <span className="sr-only">Remove</span>
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              )
+            })}
           </TableBody>
         </Table>
       )}

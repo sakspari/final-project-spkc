@@ -37,6 +37,37 @@ export function InputForm({ onCalculate }: InputFormProps) {
       return false
     }
 
+    // Check for empty names
+    const hasEmptyCriteriaNames = criteria.some((c) => !c.name.trim())
+    const hasEmptyAlternativeNames = alternatives.some((a) => !a.name.trim())
+
+    if (hasEmptyCriteriaNames) {
+      setValidationError("All criteria must have non-empty names")
+      return false
+    }
+
+    if (hasEmptyAlternativeNames) {
+      setValidationError("All alternatives must have non-empty names")
+      return false
+    }
+
+    // Check for duplicate names
+    const criteriaNames = criteria.map((c) => c.name.trim().toLowerCase()).filter((name) => name)
+    const hasDuplicateCriteriaNames = criteriaNames.length !== new Set(criteriaNames).size
+
+    const alternativeNames = alternatives.map((a) => a.name.trim().toLowerCase()).filter((name) => name)
+    const hasDuplicateAlternativeNames = alternativeNames.length !== new Set(alternativeNames).size
+
+    if (hasDuplicateCriteriaNames) {
+      setValidationError("All criteria names must be unique")
+      return false
+    }
+
+    if (hasDuplicateAlternativeNames) {
+      setValidationError("All alternative names must be unique")
+      return false
+    }
+
     const hasCoreFactors = criteria.some((c) => c.factorType === "core")
     const hasSecondaryFactors = criteria.some((c) => c.factorType === "secondary")
 
@@ -105,6 +136,17 @@ export function InputForm({ onCalculate }: InputFormProps) {
     }
   }
 
+  // Check if form has validation errors that prevent calculation
+  const hasEmptyCriteriaNames = criteria.some((c) => !c.name.trim())
+  const hasEmptyAlternativeNames = alternatives.some((a) => !a.name.trim())
+  const criteriaNames = criteria.map((c) => c.name.trim().toLowerCase()).filter((name) => name)
+  const hasDuplicateCriteriaNames = criteriaNames.length !== new Set(criteriaNames).size
+  const alternativeNames = alternatives.map((a) => a.name.trim().toLowerCase()).filter((name) => name)
+  const hasDuplicateAlternativeNames = alternativeNames.length !== new Set(alternativeNames).size
+
+  const hasValidationErrors =
+    hasEmptyCriteriaNames || hasEmptyAlternativeNames || hasDuplicateCriteriaNames || hasDuplicateAlternativeNames
+
   return (
     <div className="space-y-8">
       {validationError && (
@@ -146,7 +188,7 @@ export function InputForm({ onCalculate }: InputFormProps) {
       </Card>
 
       <div className="flex justify-end">
-        <Button size="lg" onClick={handleCalculate}>
+        <Button size="lg" onClick={handleCalculate} disabled={hasValidationErrors}>
           Calculate Results
         </Button>
       </div>
